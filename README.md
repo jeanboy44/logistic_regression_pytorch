@@ -3,17 +3,22 @@ logistic regression with pytorch
 
 
 # 구성
-## 1. linear regression with pytorch
-- linear regression 이해하기
-- predict 구현
-- train 구현
-- pytorch로 구현
+## 1. linear regression from scratch
+- linear regression with sklearn
+- linear regression from scratch
+    - prediction
+    - training
+- linear regression with numpy
+- linear regression with pytorch 1
+- linear regression with pytorch 2
 
-## 2. logistic regression with pytorch
-- logistic regression 이해하기
-- predict 구현
-- train 구현
-- pytorch로 구현
+## 2. logistic regression from scratch
+- linear regression with sklearn
+- linear regression from scratch
+    - prediction
+    - training
+- linear regression with numpy
+- linear regression with pytorch
 
 ## 3. logistic regression to deep learning
 
