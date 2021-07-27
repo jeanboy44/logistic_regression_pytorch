@@ -1,42 +1,18 @@
 import pandas as pd
-from sklearn import linear_model
+from sklearn import linear_model, datasets
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 
 
 def prepare_data():
     # 1. load data
-    cols = [
-        "CRIM",
-        "ZN",
-        "INDUS",
-        "CHAS",
-        "NOX",
-        "RM",
-        "AGE",
-        "DIS",
-        "RAD",
-        "TAX",
-        "PTRATIO",
-        "B",
-        "LSTAT",
-        "MEDV",
-    ]
-    # https://raw.githubusercontent.com/rasbt/python-machine-learning-book/master/code/datasets/housing/housing.data
-    df = pd.read_csv(
-        "data/raw/housing.data.txt",
-        delimiter=r"\s+",
-        names=cols,
-    )
-    df = df.dropna()
-    X = df.drop("MEDV", axis=1)
-    y = df[["MEDV"]]
+    X, y = datasets.load_diabetes(return_X_y=True)
+    X = X[:, 1:3]
 
     # 2. Split Train and Test Data
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.20, random_state=5
     )
-
     return X_train, X_test, y_train, y_test
 
 
@@ -56,10 +32,16 @@ def predict(reg, X):
 
 
 def main():
+    # 1. prepare data
     X_train, X_test, y_train, y_test = prepare_data()
+
+    # 2. train
     reg = train(X_train, y_train)
+
+    # 3. predict
     y_pred = predict(reg, X_test)
     print(f"MSE: {mean_squared_error(y_test, y_pred)}")
+    print(reg.coef_)
 
 
 if __name__ == "__main__":
