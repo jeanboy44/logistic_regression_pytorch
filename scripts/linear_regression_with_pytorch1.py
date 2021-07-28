@@ -47,24 +47,22 @@ def train(X, y, theta, optimizer):
     cost.backward()
     optimizer.step()
 
-
-N = X_train.shape[0]
-D = X_train.shape[1]
-
-
-# 3. Initialize model
-# - Set hyper parameters
+    return cost
 
 
 def main():
     # 1. prepare data
     X_train, X_test, y_train, y_test = prepare_data()
+    N = X_train.shape[0]
+    D = X_train.shape[1]
 
     # 2. train model
+    # initailize
     theta = torch.zeros(D, requires_grad=True).float()
     optimizer = optim.SGD([theta], lr=LEARNING_RATE)  # Stochastic Gradient Descenct
+    # fit
     for epoch in range(EPOCHS):
-        train(X_train, y_train, theta, optimizer)
+        cost = train(X_train, y_train, theta, optimizer)
         # 100번마다 로그 출력
         if epoch % 100000 == 0:
             print(f"Epoch {epoch}/{EPOCHS} Cost: {cost.item()}")
@@ -72,6 +70,7 @@ def main():
     # 3. predict
     y_pred = predict(X_test, theta)
     print(f"MSE: {mean_squared_error(y_test, y_pred.detach().numpy())}")
+    print(theta.detach().numpy())
 
 
 if __name__ == "__main__":
